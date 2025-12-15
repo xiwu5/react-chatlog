@@ -1,8 +1,22 @@
 import './App.css';
 import ChatLog from './components/ChatLog';
-import messages from './data/messages.json';
+import messagesData from './data/messages.json';
+import { useState } from 'react';
 
 const App = () => {
+  const [messages, setMessages] = useState(messagesData);
+
+  const updateLikedStatus = (id) => {
+    setMessages((prevMessages) =>
+      prevMessages.map((message) =>
+        message.id === id
+          ? { ...message, liked: !message.liked }
+          : message
+      )
+    );
+  };
+
+  const totalLikes = messages.filter((message) => message.liked).length;
   const participants = Array.from(new Set(messages.map((message) => message.sender)));
 
   let localSender = 'Local';
@@ -26,12 +40,14 @@ const App = () => {
     <div id="App">
       <header>
         <h1>{titleText}</h1>
+        <p>{totalLikes} ❤️s</p>
       </header>
       <main>
         <ChatLog
           entries={messages}
           localSender={localSender}
           remoteSender={remoteSender}
+          onUpdateLiked={updateLikedStatus}
         />
       </main>
     </div>

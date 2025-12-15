@@ -8,24 +8,32 @@ const ChatEntry = (props) => {
     entryClass = 'local';
   }
 
+  const handleLikeClick = () => {
+    props.onUpdateLiked(props.id);
+  };
+
   return (
     <article className={`chat-entry ${entryClass}`}>
       <h2 className="entry-name">{props.sender}</h2>
       <section className="entry-bubble">
         <p>{props.body}</p>
         <p className="entry-time"><TimeStamp time={props.timeStamp} /></p>
-        <button className="like">🤍</button>
+        <button className="like" onClick={handleLikeClick}>
+          {props.liked ? '❤️' : '🤍'}
+        </button>
       </section>
     </article>
   );
 };
 
 ChatEntry.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   sender: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   timeStamp: PropTypes.string.isRequired,
   isLocal: PropTypes.bool,
+  liked: PropTypes.bool.isRequired,
+  onUpdateLiked: PropTypes.func.isRequired,
 };
 
 ChatEntry.defaultProps = {
