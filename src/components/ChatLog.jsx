@@ -57,12 +57,12 @@ ChatLog.propTypes = {
       sender: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
       timeStamp: PropTypes.string.isRequired,
-      liked: PropTypes.bool.isRequired,
+      liked: PropTypes.bool,
     })
   ).isRequired,
   localSender: PropTypes.string,
   remoteSender: PropTypes.string,
-  onUpdateLiked: PropTypes.func.isRequired,
+  onUpdateLiked: PropTypes.func,
 };
 
 ChatLog.defaultProps = {

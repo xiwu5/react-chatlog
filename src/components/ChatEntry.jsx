@@ -9,7 +9,9 @@ const ChatEntry = (props) => {
   }
 
   const handleLikeClick = () => {
-    props.onUpdateLiked(props.id);
+    if (props.onUpdateLiked) {
+      props.onUpdateLiked(props.id);
+    }
   };
 
   return (
@@ -32,12 +34,13 @@ ChatEntry.propTypes = {
   body: PropTypes.string.isRequired,
   timeStamp: PropTypes.string.isRequired,
   isLocal: PropTypes.bool,
-  liked: PropTypes.bool.isRequired,
-  onUpdateLiked: PropTypes.func.isRequired,
+  liked: PropTypes.bool,
+  onUpdateLiked: PropTypes.func,
 };
 
 ChatEntry.defaultProps = {
   isLocal: true,
+  liked: false,
 };
 
 export default ChatEntry;
